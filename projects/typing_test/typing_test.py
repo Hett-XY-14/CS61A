@@ -48,9 +48,28 @@ def analyze(sample_paragraph, typed_string, start_time, end_time):
     accuracy = accuracy_percentage(sample_paragraph, typed_string)
     return [words_p_m, accuracy]
 
-    # END Q1-5
 
-    # Question 6
+def pig_latin(word_to_convert):
+    import re
+    regex = "^[^aeiou]+"
+    match_obj = re.search(regex, word_to_convert)
+    if bool(match_obj):
+        matched_str = match_obj.group()
+        word_to_convert = re.sub(matched_str, "", word_to_convert)
+        word_to_convert = word_to_convert + matched_str + "ay"
+    else:
+        word_to_convert = word_to_convert + "way"
+    return word_to_convert
+
+
+def autocorrect(user_input, words_list, score_function):
+    if user_input in words_list:
+        return user_input
+    else:
+
+        # END Q1-5
+
+        # Question 6
 
 
 def score_function(word1, word2):
