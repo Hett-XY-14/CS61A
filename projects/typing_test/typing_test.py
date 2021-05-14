@@ -63,13 +63,40 @@ def pig_latin(word_to_convert):
 
 
 def autocorrect(user_input, words_list, score_function):
+    def make_dictionary():
+        score_dictionary = {}
+        for word in words_list:
+            dif = score_function(user_input, word)
+            score_dictionary[word] = dif
+        print(score_dictionary["gomez"])
+        print(score_dictionary["gore"])
+        return score_dictionary
+
     if user_input in words_list:
         return user_input
     else:
+        score_dictionary = make_dictionary()
+        return min(score_dictionary, key=lambda x: score_dictionary[x])
+
+
+def swap_score(word_1, word_2):
+    if word_1 == "":
+        return 0
+    elif word_2 == "":
+        return len(word_1)
+    else:
+        if word_1[0] == word_2[0]:
+            return 0 + swap_score(word_1[1:], word_2[1:])
+        else:
+            return 1 + swap_score(word_1[1:], word_2[1:])
 
         # END Q1-5
 
         # Question 6
+
+
+words_list = lines_from_file("./data/words.txt")
+print(autocorrect("goje", words_list, swap_score))
 
 
 def score_function(word1, word2):
