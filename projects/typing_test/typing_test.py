@@ -133,13 +133,7 @@ def score_function(word1, word2):
         # END Q6
 
 
-print(score_function("tesng", "testing"))
-print(score_function("rlogcul", "logical"))
-print(score_function("misspelled", "spelling"))
 KEY_DISTANCES = get_key_distances()
-print(KEY_DISTANCES["q", "t"])
-print(KEY_DISTANCES["q", "e"])
-
 # BEGIN Q7-8
 
 
@@ -168,13 +162,32 @@ def score_function_accurate(word1, word2):
 print(score_function_accurate("tesng", "testing"))
 print(score_function_accurate("rlogculu", "logicala"))
 print(score_function_accurate("misspelled", "spelling"))
-print(score_function_accurate("cuetara", "cuotoro"))
-print(score_function_accurate("cuetara", "cuotore"))
-print(score_function_accurate("amaranto", "amaramsta"))
+
 
 # print(KEY_DISTANCES["u", "a"])
 # print(KEY_DISTANCES["d", "g"])
 # print(KEY_DISTANCES["d", "g"]+KEY_DISTANCES["e", "n"])
 # print(KEY_DISTANCES["d", "g"]+KEY_DISTANCES["e", "n"]+6)
-"*** YOUR CODE HERE ***"
-# END Q7-8
+memo_dict = {}
+
+
+def score_function_final(word1, word2):
+    global memo_dict
+    value = 0
+    if word1 in memo_dict.keys() and word2 in memo_dict[word1].keys():
+        value = memo_dict[word1][word2]
+    elif word2 in memo_dict.keys() and word1 in memo_dict[word2].keys():
+        value = memo_dict[word2][word1]
+    else:
+        value = score_function_accurate(word1, word2)
+
+        memo_dict[word1] = {word2: value}
+
+    print(value)
+    return value
+
+
+    # END Q7-8
+print("first: " + str(score_function_final("cuetara", "cuotoro")))
+print(score_function_final("cuetara", "cuotore"))
+print(score_function_final("amaranto", "amaramstsa"))
