@@ -320,7 +320,11 @@ def totals_tree(m):
           3
           2
     """
-    "*** YOUR CODE HERE ***"
+    if is_weight(m):
+        return tree(total_weight(m))
+    else:
+        assert is_mobile(m)
+        return tree(total_weight(m), [totals_tree(end(left(m))), totals_tree(end(right(m)))])
 
 ###################
 # Extra Questions #
